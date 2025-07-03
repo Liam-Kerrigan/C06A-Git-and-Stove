@@ -1,22 +1,27 @@
 
 public class Burner {
 	private enum Temperature { 
-		BLAZING(3), 
-		HOT(2), 
-		WARM(1), 
-		COLD(0);
+		BLAZING("VERY HOT! DON'T TOUCH"), 
+		HOT("CAREFUL"), 
+		WARM("warm"), 
+		COLD("cooool");
 
-		public int numLevel;
-		Temperature(int lvl) {
-			this.numLevel = lvl;
+		public String displayStr;
+		Temperature(String displayStr) {
+			this.displayStr = displayStr;
 		}
 		
 	};
 
-	private Temperature myTemperature = Temperature.COLD;
-	private Setting mySetting = Setting.OFF;
+	private Temperature myTemperature;
+	private Setting mySetting;
 	private int timer = 0;
 	private final static int TIME_DURATION = 2;
+	
+	Burner() {
+		myTemperature = Temperature.COLD;
+		mySetting = Setting.OFF;
+	}
 
 
 	public Temperature getMyTemperature() {
@@ -24,6 +29,7 @@ public class Burner {
 	}
 
 	public void plusButton() {
+		timer = TIME_DURATION;
 		switch (mySetting) {
 		case OFF:
 			mySetting = Setting.LOW;
@@ -39,6 +45,7 @@ public class Burner {
 	}
 
 	public void minusButton() {
+		timer = TIME_DURATION;
 		switch (mySetting) {
 		case OFF:
 		case LOW:
@@ -55,7 +62,7 @@ public class Burner {
 
 
 	public void updateTemperature() {
-		if (++timer == TIME_DURATION) {
+		if (--timer == 0) {
 			switch (mySetting) {
 			case OFF:
 				switch (myTemperature) {
@@ -105,12 +112,12 @@ public class Burner {
 				default:
 				}
 			}
-			timer = 0;
+			timer = TIME_DURATION;
 		}
 	}
 
 	public void display() {
-
+		System.out.println("[" + this.mySetting + "]....." + this.myTemperature.displayStr);
 	}
 
 
