@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 /**
@@ -30,15 +31,15 @@ public class Stove {
 	 **** You must write the following method ****
 	 */
 	public void displayStove() {
-		boolean burning;
+		boolean burning = false;
 		for (Burner burner : burners) {
-			System.out.println(burner);
-			if (burner.getMyTemperature() == Temperature.BLAZING) {
+			burner.display();
+			if (burner.getMyTemperature() == Burner.Temperature.BLAZING) {
 				burning = true;
 			}
 		}
 		if (burning) {
-			System.out.println("RED LIGHT _ HOT BURNER ALERT");
+			System.out.println("RED LIGHT - HOT BURNER ALERT");
 		}
 	}
 	
@@ -101,7 +102,7 @@ public class Stove {
 		Stove stove = new Stove();
 		
 		System.out.println("Beginning stove state ");
-		// trun the burners up
+		// turn the burners up
 		stove.displayStove();
 		stove.turnBurnersUp();
 		stove.timePassing(6);
